@@ -209,37 +209,3 @@ class Sudoku:
                 single_list.append(self.sudoku[i][j])
 
         return single_list
-
-
-a = Sudoku()
-#c = a.deepcopy_sudoku()
-#a.hide_values(9, "-")
-#print(a.get_sudoku_as_rows())
-#print(c)
-#a.print_sudoku()
-#print(a.sudoku)
-#a.invert_sudoku()
-#a.print_sudoku()
-#a.invert_sudoku()
-#a.print_sudoku()
-#a.regenerate_sudoku()
-#a.print_sudoku()
-#a.__init__()
-#a.print_sudoku()
-#print(a.get_sudoku_as_single_list())
-#b = a.deepcopy_sudoku()
-#print(b.get_sudoku_as_single_list())
-
-#c = a.get_sudoku_as_rows()
-#print(c)
-#d = a.get_sudoku_as_columns()
-#print(d)
-
-
-# b = Sudoku()
-# b.hide_values(5, ".")
-# b.print_sudoku()
-
-#print_sudoku(hide_values(sudoku, 9, " "))
-
-#print_sudoku(sudoku)
