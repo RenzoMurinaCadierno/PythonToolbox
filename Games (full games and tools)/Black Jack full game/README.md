@@ -4,7 +4,7 @@ Black Jack
 Overview
 ----------------------------------------
 
-A Black Jack game created following Tim Buchalka's proposed exercise at lectures 105-111 in his 'Learn Python Programming Masterclass' course.
+A Black Jack game created following Tim Buchalka's proposed exercise at lectures 105-112 in his 'Learn Python Programming Masterclass' course.
 
 An excellent experience, which taught me many things I did not know from Tkinter module, at the same time it trained my problem-solving logic.
 

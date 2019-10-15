@@ -42,7 +42,7 @@ def load_images(card_images):
             card_images.append((10, image,))
 
 
-def deal_card(frame):
+def _deal_card(frame):
     """Pops the top card of the stack, adds the image to the frame
     passed as an argument, and returns the tuple of the value and
     image of the popped card."""
@@ -63,9 +63,9 @@ def deal_card(frame):
     return next_card
 
 
-def score_hand(hand):
+def _score_hand(hand):
     """Calculates the total score of all cards in the list.
-    Only one ace can hace the value 11, and this will be reduced
+    Only one ace can have the value 11, and this will be reduced
     to 1 if the hand would bust."""
 
     score = 0
@@ -93,30 +93,30 @@ def score_hand(hand):
     return score
 
 
-def deal_dealer():
+def _deal_dealer():
     """Since we cannot pass the dealer_card_frame as an argument to the
     command parameter of Button (since it will execute the function
     instantly), we need to specifically create a function that deals
     cards for the player and for the dealer."""
 
     # calculate and return the score of the dealer's hand.
-    dealer_score = score_hand(dealer_hand)
+    dealer_score = _score_hand(dealer_hand)
 
     while 0 < dealer_score < 17:
 
         # Up to a score of 17 or higher, deal a card to the dealer
         # and append it to their hand.
-        dealer_hand.append(deal_card(dealer_card_frame))
+        dealer_hand.append(_deal_card(dealer_card_frame))
 
         # calculate and return the score of the dealer's hand.
-        dealer_score = score_hand(dealer_hand)
+        dealer_score = _score_hand(dealer_hand)
 
         # set the score to the respective label.
         dealer_score_label.set(dealer_score)
 
     # since the dealer always goes last, we can check for the players's
     # score here, and check if they won or lost.
-    player_score = score_hand(player_hand)
+    player_score = _score_hand(player_hand)
 
     if player_score > 21:
         result_text.set("Dealer wins!")
@@ -128,14 +128,14 @@ def deal_dealer():
         result_text.set("Draw!")
 
 
-def deal_player():
+def _deal_player():
     """Almost the same as deal_dealer()"""
 
     # we append the dealed card to the player's hand.
-    player_hand.append(deal_card(player_card_frame))
+    player_hand.append(_deal_card(player_card_frame))
 
     # calculate and return the score of the player's hand.
-    player_score = score_hand(player_hand)
+    player_score = _score_hand(player_hand)
 
     # set the score to the respective label.
     player_score_label.set(player_score)
@@ -145,9 +145,26 @@ def deal_player():
         result_text.set("Dealer wins!")
 
 
-def new_game():
+def _initial_deal():
+    """Deals the two cards to the player and one to the dealer."""
+
+    # player gets the first card automatically.
+    _deal_player()
+
+    # deals a card to dealer's hand until they hit 17 or more.
+    #   > Check the function deal_dealer
+    dealer_hand.append(_deal_card(dealer_card_frame))
+
+    # show the initial score for the dealer (otherwise it will be 0)
+    dealer_score_label.set(_score_hand(dealer_hand))
+
+    # immediately deal the second card to the player
+    _deal_player()
+
+
+def _new_game():
     """Destroys the card frames and recreates them.
-    Resets the result label, Resets the hands, deal the first cards
+    Resets the result label resets the hands, and deals the first cards
     for the player and the dealer"""
 
     global dealer_card_frame
@@ -170,29 +187,30 @@ def new_game():
     dealer_hand = []
     player_hand = []
 
-    # player gets the first card automatically.
-    deal_player()
-
-    # deals a card to dealer's hand until they hit 17 or more.
-    #   > Check the function deal_dealer
-    dealer_hand.append(deal_card(dealer_card_frame))
-
-    # show the initial score for the dealer (otherwise it will be 0)
-    dealer_score_label.set(score_hand(dealer_hand))
-
-    # immediately deal the second card to the player
-    deal_player()
+    # deal the first cards
+    _initial_deal()
 
 
-def shuffle():
+def _shuffle():
     """Shuffles the deck at any point."""
 
     random.shuffle(deck)
 
 
+def play_game():
+    """Starts the game up by dealing the first two cards to the player
+    and one for the dealer. It also calls for main_loop() so no errors
+    trigger when the module is imported."""
+
+    _initial_deal()
+
+    main_window.mainloop()
+
+
 # Set up the screen and frames for the dealer and player
 
 main_window = tkinter.Tk()
+
 main_window.title("Black Jack")
 main_window.geometry("500x290")
 main_window.configure(background="green")
@@ -212,7 +230,6 @@ tkinter.Label(
 tkinter.Label(
     card_frame, textvariable=dealer_score_label, background="green", fg="white")\
         .grid(row=1, column=0)
-
 
 # a frame to hold the dealer's card images
 dealer_card_frame = tkinter.Frame(card_frame, background="green")
@@ -235,21 +252,20 @@ button_frame.grid(row=3, column=0, columnspan=3, sticky="w")
 
 # A button that deals a card to the dealer's frame (hand)
 #   > See def_dealer() docs.
-dealer_button = tkinter.Button(button_frame, text="Dealer", command=deal_dealer)
+dealer_button = tkinter.Button(button_frame, text="Dealer", command=_deal_dealer)
 dealer_button.grid(row=0, column=0)
 
 # A button that deals a card to the player's frame (hand)
-player_button = tkinter.Button(button_frame, text="Player", command=deal_player)
+player_button = tkinter.Button(button_frame, text="Player", command=_deal_player)
 player_button.grid(row=0, column=1)
 
 # A button to start a new game up.
-new_game_button = tkinter.Button(button_frame, text="New game", command=new_game)
+new_game_button = tkinter.Button(button_frame, text="New game", command=_new_game)
 new_game_button.grid(row=0, column=2)
 
 # And a button to shuffle the deck at any point
-shuffle_button = tkinter.Button(button_frame, text="Shuffle", command=shuffle)
+shuffle_button = tkinter.Button(button_frame, text="Shuffle", command=_shuffle)
 shuffle_button.grid(row=0, column=3)
-
 
 # load the cards to a list (format: (index, image object))
 cards = []
@@ -261,13 +277,13 @@ deck = list(cards)      # we use the list constructor to create a separate list
                         # playing multiple games.
 
 # then shuffle the deck
-shuffle()
+_shuffle()
 
 # create a list to store dealer's and player's hands.
 dealer_hand = []
 player_hand = []
 
-# start a new game up
-new_game()
+if __name__ == "__main__":
 
-main_window.mainloop()
+    # start a new game up
+    play_game()
