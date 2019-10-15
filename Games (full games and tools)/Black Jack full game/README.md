@@ -6,7 +6,7 @@ Overview
 
 A Black Jack game created following Tim Buchalka's proposed exercise at lectures 105-112 in his 'Learn Python Programming Masterclass' course.
 
-An excellent experience, which taught me many things I did not know from Tkinter module, at the same time it trained my problem-solving logic.
+An excellent experience which taught me many things I did not know about the Tkinter module, while it continued training my problem-solving logic.
 
 Awesome course so far! My props to it. You can find it here:
 https://www.udemy.com/course/python-the-complete-python-developer-course/
