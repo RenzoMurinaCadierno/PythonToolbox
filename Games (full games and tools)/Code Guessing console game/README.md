@@ -21,9 +21,13 @@ If you did not guess any correct number regardless its position, a 'Nothing' hin
 If the code matches your guess, you win!
 
 E.g.:
+
 Code: 123   Guess: 124   Hints: Bullseye! Bullseye! Nothing!
-Code: 476   Guess: 123   Hints: Nothing! Nothing! Nothing
+
+Code: 476   Guess: 123   Hints: Nothing! Nothing! Nothing!
+
 Code: 365   Guess: 564   Hints: Missed! Bullseye! Missed!
+
 Code: 729   Guess: 729   Hints: You got it! It was 729!
 
 Thank you for reading and for using this program! 
