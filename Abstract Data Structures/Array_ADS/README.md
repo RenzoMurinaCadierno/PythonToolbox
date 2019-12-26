@@ -22,7 +22,7 @@ I have made this one following Rance D. Necaise's proposed exercise in his
 - *\_\_eq\_\_*
 - *\_\_str\_\_*
 - *fill* : Changes each array value to the value passed as a parameter.
-- *clear* : Changes each array value None.
+- *clear* : Changes each array value to None.
 
 **Subclasses:**
 - *_ArrayIterator* : A class to generate the iterator when _\_\_iter\_\__ is called.
