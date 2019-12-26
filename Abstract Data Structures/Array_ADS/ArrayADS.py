@@ -28,7 +28,7 @@ class Array:
 
     def __init__(self, size_or_values=[]):
         """ 
-        Initializes the list. Either integer representing the size of the
+        Initializes the list. Either an integer representing the size of the
         array or a list containing the initial values must be passed as an
         argument. Otherwise, the proper error will be risen.
 
@@ -36,7 +36,7 @@ class Array:
 
         Attributes:
             self._length (int) : The size of the Array.
-            self._values (any) : The array itself holding its values.
+            self._values (Array) : The array itself holding its values.
         """
 
         # Initialization conditions
