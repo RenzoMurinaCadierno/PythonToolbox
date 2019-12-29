@@ -14,6 +14,15 @@ From there on, please feel free to check the methods, they are all commented and
 
 Please, keep in mind that _this structure is NOT a multi-linked list_. Since each list is indexed by using its nodes _idx individual values, it DOES NOT SUPPORT adding the same node to different lists. Whenever a new node is added to a linked list, the list is reindexed, what affects the index values of other lists that contain that node in them alas breaking the integrity. You can do so if you desire. However, keep in mind that the behavior of any method that searches by index value will rise an exception or generate and infinite loop, since this way a list can contain more than one of the same index.
 
+Instructions
+----------------------------------
+Just import this file in your script and instantiate the main class. From there on, you can create node and linked list objects. Everything is commented in the code, feel free to check it out.
+
+As stated above, there are examples in the main program down below in the script, they are designed to show you the usage.
+
+Attributes, methods and classes
+----------------------------------
+
 **Attributes:**
 - *_self.\_head* : Head reference to first node.
 - *_self.\_tail* : Tail reference to last node.
@@ -59,3 +68,5 @@ Please, keep in mind that _this structure is NOT a multi-linked list_. Since eac
     - *_get\_value* : Returns the node's value.
     - *_get\_index* : Returns the node's index.
     - *_get\_next* : Returns a reference to the node linked to the _next field.
+    
+### Thank you for reading and for taking your time to check this project out!
