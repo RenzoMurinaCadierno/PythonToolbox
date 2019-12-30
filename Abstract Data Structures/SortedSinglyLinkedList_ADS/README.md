@@ -1,4 +1,4 @@
-Sorted Singly Linked List ADS
+Sorted Singly Linked List Abstract Data Structure
 ==================================
 
 Overview
@@ -24,9 +24,9 @@ Attributes, methods and classes
 ----------------------------------
 
 **Attributes:**
-- *_self.\_head* : Head reference to first node.
-- *_self.\_tail* : Tail reference to last node.
-- *_self.\_idx* : Index to assign to each node to keep sorted order.
+- *self.\_head* : Head reference to first node.
+- *self.\_tail* : Tail reference to last node.
+- *self.\_idx* : Index to assign to each node to keep sorted order.
 
 **Methods:**
 - *\_\_init\_\_*
@@ -60,9 +60,9 @@ Attributes, methods and classes
 - *SSLL\_Node* : Outer public class that creates valid node objects. It is kept public for convenience, when nodes ought to be created before assigning them to the linked list.
 
 - **Attributes:**
-    - *_self.\_value* : The node's value. 
-    - *_self.\_idx* : The node's index assigned by the linked list. Defaults to None.
-    - *_self.\_next* : The reference to the next node. Defaults to None.
+    - *self.\_value* : The node's value. 
+    - *self.\_idx* : The node's index assigned by the linked list. Defaults to None.
+    - *self.\_next* : The reference to the next node. Defaults to None.
 
 - **Methods:**
     - *_get\_value* : Returns the node's value.
