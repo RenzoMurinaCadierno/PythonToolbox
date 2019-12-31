@@ -1,15 +1,11 @@
 class SortedSinglyLL:
     """
-    Author: Renzo Nahuel Murina Cadierno - December 29, 2019.
-    Github: https://github.com/RenzoMurinaCadierno
-    Contact: nmcadierno@hotmail.com
-
     A class that tries to emulate the behavior of a Singly Sorted linked 
     list, with some additional features.
 
     You can create object instances by simply calling the constructor,
-    in which case a linked list will contain a single node with a value
-    of none, index of zero, and head and tail references pointing to it.
+    in which case a linked list will be empty, with no head or tail
+    references linked to anything.
     
     Or, you can pass any number of objects (they do not need to be
     valid node instances) when constructing the list, and they will be
@@ -19,20 +15,19 @@ class SortedSinglyLL:
     the last supplied value. The list index will always be the same as
     its length, and will increase and decrease as nodes are added/removed.
 
-    From there on, please feel free to check the methods, they are all
-    commented and -I hope- readable. Moreover, there are several examples 
-    down below, when the main program initializes. Uncomment them a block
-    at a time to test them out.
+    From there on, feel free to check the methods, they are all commented 
+    and -I hope- readable. Moreover, there are several examples down below, 
+    when the main program initializes. Uncomment them a block at a time to 
+    test them out.
 
-    Please, keep in mind that this structure is NOT a multi-linked list.
-    Since each list is indexed by using its nodes _idx individual values, 
-    it DOES NOT SUPPORT adding the same node to different lists. Whenever 
-    a new node is added to a linked list, the list is reindexed, what 
-    affects the index values of other lists that contain that node in them 
-    alas breaking the integrity. You can do so if you desire. However, 
-    keep in mind that the behavior of any method that searches by index 
-    value will rise an exception or generate and infinite loop, since this 
-    way a list can contain more than one of the same index.
+    Keep in mind that this structure does NOT support adding the same node
+    different lists, since each list is indexed by using its nodes _idx 
+    individual values. Whenever a new node is added to a linked list, the 
+    list is reindexed, what affects the index values of other lists that 
+    contain that node in them alas breaking the integrity. You can do so 
+    if you desire. However, keep in mind that the behavior of any method that 
+    searches by index value will rise an exception or generate and infinite 
+    loop, since this way a list can contain more than one of the same index.
 
     Attributes:
         self._head : Head reference to first node.
@@ -40,6 +35,7 @@ class SortedSinglyLL:
         self._idx : Index to assign to each node to keep sorted order.
     
     Methods:
+        __init__
         __len__
         __str__
         __iter__
@@ -50,20 +46,29 @@ class SortedSinglyLL:
         get_head : Gets a reference to the head node.
         get_tail : Gets a reference to the tail node.
         get_list_index : Gets the current list index.
-        get_nodes : Gets all nodes in the list.
+        get_nodes : Gets a tuple with all nodes in the list. If indexed=True 
+                     is passed as parameter, it gets a tuple of tuples where
+                     each inner tuple is in the format of (node index, node value).
         set_nodes : Sets all nodes to a value. Has a safe overwirte 
-                    mode to replace only the nodes whose values are None.
+                     mode to replace only the nodes whose values are None.
         indexOf : Gets the indexes of the node whose values matches with 
                 the parameter.
         valueOf : Gets the value of the node whose index matches with 
                 the parameter.
+        clear : Removes all nodes from the list. If the nodes are not bound
+                to an external reference, they will be garbage collected.
         append : Inserts a value/node at the end of the list.
         prepend : Inserts a value/node at the beginning of the list.
         insert : Inserts a value/node at the given index position.
         pop : Removes the node at the given index. Defaults to self._tail
+        dprint : Prints the current list index, the list itself (as in
+                  pprint), and the head and tail references with their index,
+                  value and next fields. If all_nodes=True, all of the member
+                  nodes will be printed out in the same fashion.
         pprint : Prints each node's index and values. A detailed print.
         split : Splits the list in two starting at the given index and 
                 returns a reference to the head of the second list.
+        clone : Creates and returns a shallow copy of the linked list.
         _find_by_value : finds and returns a tuple of tuples with all nodes  
                         whose values match the one passed as a parameter.
                         Inner tuples : (matched_node, previous_neighbor).
@@ -95,6 +100,10 @@ class SortedSinglyLL:
                 get_index : Returns the node's index.
                 get_next : Returns a reference to the node linked to the
                             _next field.
+
+    Author: Renzo Nahuel Murina Cadierno - December 29, 2019.
+    Github: https://github.com/RenzoMurinaCadierno
+    Contact: nmcadierno@hotmail.com
     """         
 
     def __init__(self, *args):
@@ -103,8 +112,7 @@ class SortedSinglyLL:
         passed as args in that order. Assigns an index to each of them
         and links them by their _next field.
         
-        If no args are supplied, the instance will contain a single node
-        with index of 0 and value of None.
+        If no args are supplied, the instance will be empty.
         """
         self._idx = 0
         self._head = None
@@ -123,20 +131,13 @@ class SortedSinglyLL:
                 self._idx += 1
                 self._tail._next = node
                 self._tail = node
-                
-        else:
-            first = SSLL_Node(None)
-            first._idx = self._idx
-            self._idx += 1
-            self._head = first
-            self._tail = first
 
     def __len__(self):
         return self._idx
 
-    def __str__(self, *args, **kwargs):
+    def __str__(self, start=">> ", end=" >/>"):
         current = self._head
-        rtn = ">> "
+        rtn = start
 
         while current:
 
@@ -147,7 +148,7 @@ class SortedSinglyLL:
             rtn += f'{current} -> '
             current = current._next
 
-        rtn += ' >/>'
+        rtn += end
         return rtn
 
     def __iter__(self):
@@ -181,9 +182,9 @@ class SortedSinglyLL:
             raise IndexError('Index out of range.')
 
     def __eq__(self, ssll):
-        assert type(ssll) == SortedSinglyLL, \
+        assert isinstance(ssll, SortedSinglyLL), \
             "Both instances must be type SortedSinglyLL to compare."
-        
+ 
         current_one = self._head
         current_two = ssll._head
 
@@ -216,7 +217,7 @@ class SortedSinglyLL:
         """
         return len(self)
 
-    def get_nodes(self, indexed=False):
+    def get_nodes(self, **kwargs):
         """ 
         Returns a tuple populated with all nodes of the linked list.
         
@@ -230,15 +231,16 @@ class SortedSinglyLL:
         current = self._head
 
         while current:
-            if indexed:
-                nodes.append((current._idx, current.value))
+            if 'indexed' in kwargs.keys():
+                if kwargs['indexed'] == True:
+                    nodes.append((current._idx, current.value))
             else:
                 nodes.append(current.value)
             current = current._next
 
         return tuple(nodes)
 
-    def set_nodes(self, value, overwrite=False):
+    def set_nodes(self, value, **kwargs):
         """ 
         Sets each nodes' values to the one passed as a parameter.
         
@@ -250,9 +252,14 @@ class SortedSinglyLL:
 
         while current:
 
-            if overwrite:
-                current.value = value
-            elif not overwrite and current.value == None:
+            if 'overwrite' in kwargs.keys():
+
+                if kwargs['overwrite'] == True:
+                    current.value = value 
+                elif kwargs['overwrite'] == False and current.value == None:
+                    current.value = value
+
+            elif 'overwrite' not in kwargs.keys() and current.value == None:
                 current.value = value
 
             current = current._next
@@ -280,6 +287,15 @@ class SortedSinglyLL:
             return result[0].value
         else:
             raise IndexError('Index out of range.')
+
+    def clear(self):
+        """
+        Removes the head and tail references, and resets the list index. Thus,
+        clearing all nodes from the list.
+        """
+        self._head = None
+        self._tail = None
+        self._idx = 0
 
     def append(self, node_or_value):
         """ 
@@ -312,6 +328,8 @@ class SortedSinglyLL:
         node = self._nodify(node_or_value)
         node._idx = 0
         node._next = self._head
+        if not self._head:
+            self._tail = node
         self._head = node
         self._idx += 1
         self._reindex(node, 0)
@@ -338,6 +356,8 @@ class SortedSinglyLL:
                 position = self._tail._idx + 1
             elif position.lower() == 'start':
                 position = 0
+            else:
+                raise ValueError('Only "start" and "end" are valid string parameters.')
 
         node_to_move, node_behind = self._find_by_index(position)
        
@@ -390,6 +410,8 @@ class SortedSinglyLL:
 
         self._idx is adjusted accordingly.
         """
+        assert self._head, 'List is empty.'
+
         if idx == None:
             idx = self._tail._idx
 
@@ -400,7 +422,10 @@ class SortedSinglyLL:
 
         rtn = node_to_remove
 
-        if node_to_remove is self._head:
+        if not self._head._next:
+            self._head = None
+            self._tail = None
+        elif node_to_remove is self._head:
             self._head = node_to_remove._next
             self._reindex(self._head, 0)
         elif node_to_remove is self._tail:
@@ -414,6 +439,46 @@ class SortedSinglyLL:
         rtn._idx = None
         rtn._next = None
         return rtn
+
+    def dprint(self, **kwargs):
+        """
+        Prints the head and tail node references in detail, the list index
+        and the list itself.
+
+        If print_all_nodes=True, each node reference will be printed in detail, 
+        not only the ones mentioned above.
+        """
+        print('*** Detailed linked list display ***', '\n')
+        print("List current index:", self._idx)
+
+        if not self._head:
+            print("Head pointer is null.")
+        else:
+            print("> Head: idx", self._head.get_index(), "- Value:", self._head.get_value(), \
+                "- Next:", self._head.get_next())
+
+        if 'all_nodes' in kwargs.keys():
+
+            if kwargs['all_nodes'] == True:
+                head = self._nodify(self._head)
+
+                if head._next:
+                    current = self._head._next
+
+                    while current and current is not self._tail:
+                        print("- Node: idx", current.get_index(), "- Value:", current.get_value(), \
+                            "- Next:", current.get_next())
+                        current = current._next
+
+        if not self._tail:
+            print("Tail pointer is null.")
+        else:
+            print("< Tail: idx", self._tail.get_index(), "- Value:", self._tail.get_value(), \
+                "- Next:", self._tail.get_next())
+        
+        print('\n', '*** Lazy linked list display ***')
+        print(self)
+        print('-' * 80, end='\n')
 
     def pprint(self):
         """ 
@@ -456,6 +521,8 @@ class SortedSinglyLL:
         Returns a new SortedSinglyLL object composed of all nodes in the 
         second half of the list, with its own head and tail references.
         """
+        assert self._head, 'List is empty.'
+
         assert idx is not self._head._idx, \
             "Cannot split from head node, it must be from the second node onwards."
 
@@ -477,6 +544,23 @@ class SortedSinglyLL:
             second_node_in_new_list = second_node_in_new_list._next
 
         return second_list
+
+    def clone(self):
+        """
+        Creates and returns a shallow copy of the linked list.
+        """
+        assert self._head, 'Cannot clone an empty list.'
+        
+        clone = SortedSinglyLL()
+        current = self._head
+        
+        while current:
+            node = SSLL_Node(current.get_value())
+            clone.append(node)
+            current = current._next
+
+        return clone
+
 
     def _nodify(self, node):
         """ 
@@ -635,117 +719,132 @@ if __name__ == '__main__':
     ssll3 = SortedSinglyLL('Hello', 1, "asd", {'a': 1}, 0.5, [1,False], {1,"b"}, [])
     ssll4 = SortedSinglyLL('Hello', 1, "asd", {'a': 1}, 0.5, [1,False], {1,"b"}, [])
 
+    # ssll5.dprint()
 
-    # print(len(ssll))                              # __len__
+    # print(len(ssll))                                # __len__
 
-    # print(ssll)                                   # __str__
+    # print(ssll)                                     # __str__
 
-    # for i in ssll:                                # __iter__
-    #     print(i)                                  # /__iter__    
+    # for i in ssll:                                  # __iter__
+    #     print(i)                                    # /__iter__    
 
-    # print({"a": 1} in ssll)                       # __contains__   
-    # print(dummy in ssll)                          #
-    # print(["not", "in", "list"] in ssll)          # /__contains__     
+    # print({"a": 1} in ssll)                         # __contains__   
+    # print(dummy in ssll)                            #
+    # print(["not", "in", "list"] in ssll)            # /__contains__     
 
-    # print(ssll[0])                                # __getitem__      
+    # print(ssll[0])                                  # __getitem__      
 
-    # print(ssll)                                   # __setitem__ 
-    # ssll[1] = "Replaced!"                         #
-    # print(ssll)                                   # 
-    # print("-" * 80)                               #
-    # print(ssll)                                   #
-    # ssll[7] = dummy2                              #
-    # print(ssll)                                   # /__setitem__
+    # print(ssll)                                     # __setitem__ 
+    # ssll[1] = "Replaced!"                           #
+    # print(ssll)                                     # 
+    # print("-" * 80)                                 #
+    # print(ssll)                                     #
+    # ssll[7] = dummy2                                #
+    # print(ssll)                                     # /__setitem__
 
-    # print(ssll == ssll2)                          # __eq__
-    # print(ssll3 == ssll4)                         # /__eq__
+    # print(ssll == ssll2)                            # __eq__
+    # print(ssll3 == ssll4)                           # /__eq__
 
-    # print(ssll.get_head())                        # get_head
+    # print(ssll.get_head())                          # get_head
+  
+    # print(ssll.get_tail())                          # get_tail
 
-    # print(ssll.get_tail())                        # get_tail
+    # print(ssll.get_list_index())                    # get_list_index
 
-    # print(ssll.get_list_index())                  # get_list_index
+    # print(ssll.get_nodes())                         # get_nodes
+    # print("-" * 80)                                 #
+    # print(ssll.get_nodes(indexed=True))             # /get_nodes
 
-    # print(ssll.get_nodes())                       # get_nodes
+    # ssll[1] = None                                  # set_nodes
+    # ssll[ssll.indexOf(ssll.get_tail())[0]] = None   #
+    # print(ssll)                                     #
+    # ssll.set_nodes("Overwrite off", overwrite=False)#
+    # print(ssll)                                     #
+    # print('-' * 80)                                 #  
+    # ssll[1] = None                                  #
+    # ssll[ssll.indexOf(ssll.get_tail())[0]] = None   #
+    # print(ssll)                                     #
+    # ssll.set_nodes("Overwrite on", overwrite=True)  #
+    # print(ssll)                                     # /set_nodes
 
-    # ssll[1] = None                                # set_nodes
-    # ssll[ssll.indexOf(ssll.get_tail())[0]] = None #
-    # print(ssll)                                   #
-    # ssll.set_nodes("Overwrite is off")            #
-    # print(ssll)                                   #
-    # print('-' * 80)                               #  
-    # ssll[1] = None                                #
-    # ssll[ssll.indexOf(ssll.get_tail())[0]] = None #
-    # print(ssll)                                   #
-    # ssll.set_nodes("Overwrite is on", True)       #
-    # print(ssll)                                   # /set_nodes
+    # ssll.dprint()                                   # dprint
+    # ssll.dprint(all_nodes=True)                     # /dprint
 
-    # ssll.pprint()                                 # pprint
+    # ssll.pprint()                                   # pprint
 
-    # print(ssll2.indexOf(1))                       # indexOf
-    # print(ssll2.indexOf("Hello"))                 #
-    # print(ssll2.indexOf(dummy2))                  #
-    # print(ssll2.indexOf("Not in list"))           # /indexOf
+    # print(ssll2.indexOf(1))                         # indexOf
+    # print(ssll2.indexOf("Hello"))                   #
+    # print(ssll2.indexOf(dummy2))                    #
+    # print(ssll2.indexOf("Not in list"))             # /indexOf
 
-    # print(ssll.valueOf(3))                        # valueOf
+    # print(ssll.valueOf(3))                          # valueOf
 
-    # print(ssll)                                   # append
-    # ssll.append("Last!")                          #
-    # print(ssll)                                   # /append
+    # print(ssll)                                     # clear
+    # ssll.clear()                                    #
+    # print(ssll)                                     # /clear
 
-    # print(ssll)                                   # prepend
-    # ssll.prepend("First!")                        #
-    # print(ssll)                                   # /prepend
+    # print(ssll)                                     # append
+    # ssll.append("Last!")                            #
+    # print(ssll)                                     # /append
 
-    # print(ssll)                                   # insert
-    # ssll.insert("Squeezing!", 2)                  #
-    # print(ssll)                                   #
-    # print("-" * 80)                               #
-    # print(ssll)                                   #
-    # ssll.insert(dummy3, 'END')                    #
-    # print(ssll)                                   #
-    # print("-" * 80)                               #
-    # print(ssll)                                   #
-    # ssll.insert("First", 'START')                 #
-    # print(ssll)                                   # /insert
+    # print(ssll)                                     # prepend
+    # ssll.prepend("First!")                          #
+    # print(ssll)                                     # /prepend
 
-    # print(ssll)                                   # pop
-    # node_4 = ssll.pop(3)                          #
-    # print(node_4)                                 #
-    # print(ssll)                                   #
-    # print("-" * 80)                               #
-    # print(ssll)                                   #
-    # tail_node = ssll.pop()                        #
-    # print(tail_node)                              #
-    # print(ssll)                                   #
-    # print("-" * 80)                               #
-    # print(ssll)                                   #
-    # dummy_ref = ssll.pop(dummy.get_index())       #
-    # print(dummy_ref)                              #
-    # print(ssll)                                   #
-    # print("-" * 80)                               #
-    # print(ssll)                                   #
-    # ssll.insert(dummy_ref, 'end')                 #
-    # print(ssll)                                   # /pop
+    # print(ssll)                                     # insert
+    # ssll.insert("Squeezing!", 2)                    #
+    # print(ssll)                                     #
+    # print("-" * 80)                                 #
+    # print(ssll)                                     #
+    # ssll.insert(dummy3, 'END')                      #
+    # print(ssll)                                     #
+    # print("-" * 80)                                 #
+    # print(ssll)                                     #
+    # ssll.insert("First", 'START')                   #
+    # print(ssll)                                     # /insert
 
-    # print(ssll)                                   # split
-    # split_ssll = ssll.split(dummy.get_index())    #
-    # print(ssll)                                   #
-    # print(split_ssll)                             #
-    # print("-" * 80)                               #
-    # further_split = split_ssll.split(3)           #
-    # print(ssll)                                   #
-    # print(split_ssll)                             #
-    # print(further_split)                          # /split
+    # print(ssll)                                     # pop
+    # node_4 = ssll.pop(3)                            #
+    # print(node_4)                                   #
+    # print(ssll)                                     #
+    # print("-" * 80)                                 #
+    # print(ssll)                                     #
+    # tail_node = ssll.pop()                          #
+    # print(tail_node)                                #
+    # print(ssll)                                     #
+    # print("-" * 80)                                 #
+    # print(ssll)                                     #
+    # dummy_ref = ssll.pop(dummy.get_index())         #
+    # print(dummy_ref)                                #
+    # print(ssll)                                     #
+    # print("-" * 80)                                 #
+    # print(ssll)                                     #
+    # ssll.insert(dummy_ref, 'end')                   #
+    # print(ssll)                                     # /pop
 
-    # print(dummy.get_value())                      # get_value
-    # print(dummy2.get_value())                     #
-    # print(dummy3.get_value())                     # /get_value
+    # print(ssll)                                     # split
+    # split_ssll = ssll.split(dummy.get_index())      #
+    # print(ssll)                                     #
+    # print(split_ssll)                               #
+    # print("-" * 80)                                 #
+    # further_split = split_ssll.split(3)             #
+    # print(ssll)                                     #
+    # print(split_ssll)                               #
+    # print(further_split)                            # /split
 
-    # print(dummy.get_index())                      # get_index
-    # print(dummy2.get_index())                     # 
-    # print(dummy3.get_index())                     # /get_index
+    # print(ssll)                                     # clone
+    # ssll_clone = ssll.clone()                       # 
+    # print(ssll)                                     #
+    # print(ssll_clone)                               # /clone
 
-    # print(dummy.get_next())                       # get_next
-    # print(dummy2.get_next())                      # 
-    # print(dummy3.get_next())                      # /get_next
+    # print(dummy.get_value())                        # get_value
+    # print(dummy2.get_value())                       #
+    # print(dummy3.get_value())                       # /get_value
+
+    # print(dummy.get_index())                        # get_index
+    # print(dummy2.get_index())                       # 
+    # print(dummy3.get_index())                       # /get_index
+
+    # print(dummy.get_next())                         # get_next
+    # print(dummy2.get_next())                        # 
+    # print(dummy3.get_next())                        # /get_next
