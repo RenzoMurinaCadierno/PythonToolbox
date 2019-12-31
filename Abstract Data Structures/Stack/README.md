@@ -32,4 +32,4 @@ What learned from this project
 - How easy is to create new Data Structures inheriting from similar ones and changing the behavior by adding, restricting or modifying methods.
 - I'm getting better at debugging, little by little. I notice I can spot and correct bugs quicker than before.
 
-###Thank you for reading and for taking your time to check this project out!
+### Thank you for reading and for taking your time to check this project out!
