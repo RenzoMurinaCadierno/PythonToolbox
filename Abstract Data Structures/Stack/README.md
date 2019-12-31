@@ -21,8 +21,9 @@ Attributes, methods and classes
 
 Instructions
 ----------------------------------
-Make sure the parent class is situated on .
-Just import this file in your script and instantiate the main class. From there on, you can create node and linked list objects. Everything is commented in the code, feel free to check it out.
+Make sure the 'modules' folder is in the same directory as stack.py.
+
+Just import this file in your script and instantiate the main class. From there on, you can create Stack objects. Everything is commented in the code and in the module files, feel free to check them out.
 
 As stated above, there are examples in the main program down below in the script, they are designed to show you the usage.
 
