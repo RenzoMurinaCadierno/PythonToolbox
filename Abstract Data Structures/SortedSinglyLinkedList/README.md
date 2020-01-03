@@ -72,7 +72,7 @@ Attributes, methods and classes
     - *_get\_index* : Returns the node's index.
     - *_get\_next* : Returns a reference to the node linked to the _next field.
 
-What learned from this project
+What I learned from this project
 ----------------------------------
 - How singly linked list work.
 - Some pros and cons of working with node indexing in complement of the head and tail references.
