@@ -75,9 +75,9 @@ Attributes, methods and classes
 
 What I learned from this project
 ----------------------------------
-- How singly linked list work.
-- Some pros and cons of working with node indexing in complement of the head and tail references.
-- Sometimes storage matters, sometimes speed do. Linked lists are better to work with if you require huge amounts of nodes, since each one is places on its individual memory address. Also, head and tail reference stand for fast append and prepend methods. Though however, if the list is large, removing or inserting nodes can take time. Here is where indexing comes into play, since ordered items make it up in overall speed allowing the search to end prematurely. Nothing matches array's direct access, though.
+- How singly linked lists work.
+- Some pros and cons of working with node indexing in complement to head and tail references.
+- Sometimes storage matters, sometimes speed does. Linked lists are better to work with if you require huge amounts of nodes, since each one is placed on its individual memory address. Also, head and tail references stand for fast append and prepend methods. Though however, if the list is large, removing or inserting nodes can take time. Here is where indexing comes into play, since ordered items make it up in overall speed allowing the searching process to end prematurely. Nothing matches array's direct access, though.
 - How NOT to add the same node to mutiple linked lists if they are indexed. Methods that reindex nodes break the integrity of other lists that contain the same node, thus anything that requires looking for a node up by its index will crash on them.
 
 Debugging
