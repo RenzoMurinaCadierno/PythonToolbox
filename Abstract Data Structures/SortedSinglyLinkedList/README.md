@@ -54,10 +54,10 @@ Attributes, methods and classes
 - _dprint_ : Prints the current list index, the list itself (as in pprint), and the head and tail references with their index, value and next fields. If all_nodes=True, all of the member nodes will be printed out in the same fashion.
 - _split_ : Splits the list in two starting at the given index and returns a reference to the head of the second list.
 - _clone_ : Creates and returns a shallow copy of the linked list.
-- *_find\_value\_by\_value* : finds and returns a tuple of tuples with all nodes whose values match the one passed as a parameter. Inner tuples : (matched_node, previous_neighbor).
-- *_find\_value\_by\_index* : finds and returns a tuple with the node whose index matches the one passed as a parameter. The tuple will also contain the previous neighbor.          
+- *_find\_by\_value* : finds and returns a tuple of tuples with all nodes whose values match the one passed as a parameter. Inner tuples : (matched_node, previous_neighbor).
+- *_find\_by\_index* : finds and returns a tuple with the node whose index matches the one passed as a parameter. The tuple will also contain the previous neighbor.          
 - *_nodify* : Takes a value and converts it to a SSLL_Node instace before returning it. If the value is already an instance of that class, it will be returned with no changes.
-- *_reindex* : Beginning from the node passed as a parameter, reindexed each node counting from the integer onwards.
+- *_reindex* : Beginning from the node passed as parameter, reindexes each node counting from the integer passed as parameter onwards.
 
 **Classes:**
 - *_SSLL\_Iterator* : Inner private class that generates the iterator.
