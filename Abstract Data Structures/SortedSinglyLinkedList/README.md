@@ -50,7 +50,8 @@ Attributes, methods and classes
 - _prepend_ : Inserts a value/node at the beginning of the list.
 - _insert_ : Inserts a value/node at the given index position.
 - _pop_ : Removes the node at the given index. Defaults to self._tail
-- _pprint_ : Prints the current list index, the list itself (as in pprint), and the head and tail references with their index, value and next fields. If all_nodes=True, all of the member nodes will be printed out in the same fashion.
+- _pprint_ : Prints each node's index and values. A detailed print.
+- _dprint_ : Prints the current list index, the list itself (as in pprint), and the head and tail references with their index, value and next fields. If all_nodes=True, all of the member nodes will be printed out in the same fashion.
 - _split_ : Splits the list in two starting at the given index and returns a reference to the head of the second list.
 - _clone_ : Creates and returns a shallow copy of the linked list.
 - *_find\_value\_by\_value* : finds and returns a tuple of tuples with all nodes whose values match the one passed as a parameter. Inner tuples : (matched_node, previous_neighbor).
