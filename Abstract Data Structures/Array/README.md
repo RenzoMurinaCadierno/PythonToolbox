@@ -23,6 +23,8 @@ I have made this one following Rance D. Necaise's proposed exercise in his
 - *\_\_str\_\_*
 - *fill* : Changes each array value to the value passed as a parameter.
 - *clear* : Changes each array value to None.
+- *clone* : Creates a shallow copy of the array and returns it.
+- *reverse* : Reverses the array in place. The equivalent of list[::-1] but for Arrays.
 
 **Subclasses:**
 - *_ArrayIterator* : A class to generate the iterator when _\_\_iter\_\__ is called.
