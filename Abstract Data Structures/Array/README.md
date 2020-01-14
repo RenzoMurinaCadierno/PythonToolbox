@@ -34,4 +34,13 @@ Down below in the script you can find instances and methods as examples. Uncomme
 
 Or just import the script from any other one, instantiate a set using Array() constructor and there you go!
 
+Updates
+----------------------------------
+**14.01.2020**
+
+- *Added **clone***: A method that creates a shallow copy of the array and returns it.
+- *Added **reverse***: A method that reverses the array in place. The equivalent of list[::-1] but for Arrays.
+- *Refactored **\_\_get\_item\_\_***: You can now access the values using negative indexing. Like list[-1] but for Arrays.
+- *Refactored **\_\_set\_item\_\_***: You can now access the values using negative indexing. Like list[-1] but for Arrays.
+
 ### Thank you for reading and for taking your time to check this script out!
