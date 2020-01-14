@@ -68,6 +68,19 @@ class MDArray:
     """
 
     def __init__(self, *args):
+        """
+        You set dimensions' grades and their coefficients simply by passing integers to 
+        the constructor from the highest dimension grade to the first dimension. E.g.:
+
+        MDArray(5,3) will construct a 2D flat Array with five 2-dimensions each holding 
+            three 1-dimensions. Or, a 5-row 3-column 2x2 matrix.
+        MDArray(4,3,2) will create a 3D flat Array with four 3-dimensions, each one 
+            holding three 2-dimensions, and each of those 2-dimensions holding two 1-dimensions. 
+            Like a 4-table 3-row 2-columns 3x3 matrix.
+        MDArray(7,2,4,3,1) instantiates a 5D flat Array with seven 5-dimensions, each
+            one holding two 4-dimensions. Those 4-dimensions have four 3-dimensions
+            each, which have three 2-dimensions that hold one 1-dimension each.
+        """
         
         # Only 2-D+ dimensions are accepted. For 1-D, use the Array class.
         if len(args) < 2:
