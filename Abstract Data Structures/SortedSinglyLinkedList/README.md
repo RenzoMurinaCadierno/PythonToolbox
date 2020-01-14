@@ -50,13 +50,14 @@ Attributes, methods and classes
 - _prepend_ : Inserts a value/node at the beginning of the list.
 - _insert_ : Inserts a value/node at the given index position.
 - _pop_ : Removes the node at the given index. Defaults to self._tail
-- _pprint_ : Prints the current list index, the list itself (as in pprint), and the head and tail references with their index, value and next fields. If all_nodes=True, all of the member nodes will be printed out in the same fashion.
+- _pprint_ : Prints each node's index and values. A detailed print.
+- _dprint_ : Prints the current list index, the list itself (as in pprint), and the head and tail references with their index, value and next fields. If all_nodes=True, all of the member nodes will be printed out in the same fashion.
 - _split_ : Splits the list in two starting at the given index and returns a reference to the head of the second list.
 - _clone_ : Creates and returns a shallow copy of the linked list.
-- *_find\_value\_by\_value* : finds and returns a tuple of tuples with all nodes whose values match the one passed as a parameter. Inner tuples : (matched_node, previous_neighbor).
-- *_find\_value\_by\_index* : finds and returns a tuple with the node whose index matches the one passed as a parameter. The tuple will also contain the previous neighbor.          
+- *_find\_by\_value* : finds and returns a tuple of tuples with all nodes whose values match the one passed as a parameter. Inner tuples : (matched_node, previous_neighbor).
+- *_find\_by\_index* : finds and returns a tuple with the node whose index matches the one passed as a parameter. The tuple will also contain the previous neighbor.          
 - *_nodify* : Takes a value and converts it to a SSLL_Node instace before returning it. If the value is already an instance of that class, it will be returned with no changes.
-- *_reindex* : Beginning from the node passed as a parameter, reindexed each node counting from the integer onwards.
+- *_reindex* : Beginning from the node passed as parameter, reindexes each node counting from the integer passed as parameter onwards.
 
 **Classes:**
 - *_SSLL\_Iterator* : Inner private class that generates the iterator.
@@ -72,11 +73,11 @@ Attributes, methods and classes
     - *_get\_index* : Returns the node's index.
     - *_get\_next* : Returns a reference to the node linked to the _next field.
 
-What learned from this project
+What I learned from this project
 ----------------------------------
-- How singly linked list work.
-- Some pros and cons of working with node indexing in complement of the head and tail references.
-- Sometimes storage matters, sometimes speed do. Linked lists are better to work with if you require huge amounts of nodes, since each one is places on its individual memory address. Also, head and tail reference stand for fast append and prepend methods. Though however, if the list is large, removing or inserting nodes can take time. Here is where indexing comes into play, since ordered items make it up in overall speed allowing the search to end prematurely. Nothing matches array's direct access, though.
+- How singly linked lists work.
+- Some pros and cons of working with node indexing in complement to head and tail references.
+- Sometimes storage matters, sometimes speed does. Linked lists are better to work with if you require huge amounts of nodes, since each one is placed on its individual memory address. Also, head and tail references stand for fast append and prepend methods. Though however, if the list is large, removing or inserting nodes can take time. Here is where indexing comes into play, since ordered items make it up in overall speed allowing the searching process to end prematurely. Nothing matches array's direct access, though.
 - How NOT to add the same node to mutiple linked lists if they are indexed. Methods that reindex nodes break the integrity of other lists that contain the same node, thus anything that requires looking for a node up by its index will crash on them.
 
 Debugging
