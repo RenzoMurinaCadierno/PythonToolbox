@@ -3,9 +3,9 @@ Bounded Priority Queue Abstract Data Structure
 
 Overview
 ----------------------------------
-A class which attempts to emulate the basic behavior of a Bounded Priority Queue (BPQueue).
+A class that attempts to emulate the basic behavior of a Bounded Priority Queue (BPQueue).
 
-A BPQueue introduces the concept of priority when storing, enqueing, dequeuing or peeking any of its elements. Its constructor takes an integer which represents the lowest priority level and creates an array of that many Queue instances. The first Queue will be stored in array[0] and it is considered to be the highest priority, where elements are be dequeded by default. The last queue will be inside array[-1], where elements are normally enqueued. 
+A BPQueue introduces the concept of priority when storing, enqueing, dequeuing or peeking any of its elements. Its constructor takes an integer which represents the lowest priority level and creates an array of that many Queue instances. The first Queue will be stored in array[0] and it is considered to be the highest priority, where elements are to be dequeded by default. The last queue will be inside array[-1], from where elements are normally enqueued. 
     
 However, _enqueue()_, _dequeue()_ _and peek()_ also accept an optional integer value for a priority level as a parameter. If given, only the individual queue related to that priority level will be affected by those methods. For example, if you call for _enqueue(item, 3)_, the item is enqueued to the Queue whose priority is 3. _dequeue(5)_ will dequeue the first item in the queue whose priority is 5. And so on.
 
