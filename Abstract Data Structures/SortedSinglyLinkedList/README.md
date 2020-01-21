@@ -44,6 +44,7 @@ Attributes, methods and classes
 - _get\_nodes_ : Gets a tuple with all nodes in the list. If indexed=True is passed as parameter, it gets a tuple of tuples where each inner tuple is in the format of (node index, node value).
 - _set\_nodes_ : Sets all nodes to a value. Has a safe overwirte mode to replace only the nodes whose values are None.
 - _indexOf_ : Gets the indexes of the node whose values matches with the parameter.
+- _is_empty_ : Returns True if the head reference is None.
 - _valueOf_ : Gets the value of the node whose index matches with the parameter.
 - _clear_ : Removes all nodes from the list. If the nodes are not bound to an external reference, they will be garbage collected.
 - _append_ : Inserts a value/node at the end of the list.
@@ -80,8 +81,12 @@ What I learned from this project
 - Sometimes storage matters, sometimes speed does. Linked lists are better to work with if you require huge amounts of nodes, since each one is placed on its individual memory address. Also, head and tail references stand for fast append and prepend methods. Though however, if the list is large, removing or inserting nodes can take time. Here is where indexing comes into play, since ordered items make it up in overall speed allowing the searching process to end prematurely. Nothing matches array's direct access, though.
 - How NOT to add the same node to mutiple linked lists if they are indexed. Methods that reindex nodes break the integrity of other lists that contain the same node, thus anything that requires looking for a node up by its index will crash on them.
 
-Debugging
+Updates
 ----------------------------------
+**01.16.2020**
+
+- *Added **is_empty***: A method that returns True if the head reference is None.
+
 **12.31.2019**
 
 - *Added **clear***: A method to remove all nodes from the list. Sets the list index to 0 and head and tail references to None.

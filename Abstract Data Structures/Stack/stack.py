@@ -94,7 +94,7 @@ class Stack(SortedSinglyLL):
         return second_half_clone
 
     def __str__(self):
-        return super().__str__(start="<TOP> ", end=' <END>')
+        return super().__str__(start="<TOP> ", end=' <END>', separator='<-')
 
 
     ################################################################

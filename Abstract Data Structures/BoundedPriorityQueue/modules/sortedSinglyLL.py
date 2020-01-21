@@ -53,6 +53,7 @@ class SortedSinglyLL:
                      mode to replace only the nodes whose values are None.
         indexOf : Gets the indexes of the node whose values matches with 
                 the parameter.
+        is_empty : Returns True if the head pointer is None.
         valueOf : Gets the value of the node whose index matches with 
                 the parameter.
         clear : Removes all nodes from the list. If the nodes are not bound
@@ -276,6 +277,12 @@ class SortedSinglyLL:
             return tuple([result[i][0]._idx for i in range(len(result))])
         else:
             raise ValueError('Value not in list.')
+
+    def is_empty(self):
+        """
+        Returns True if the head pointer is None.
+        """
+        return self._head is None
 
     def valueOf(self, idx):
         """ 
@@ -723,7 +730,7 @@ if __name__ == '__main__':
 
     # print(len(ssll))                                # __len__
 
-    print(ssll)                                     # __str__
+    # print(ssll)                                     # __str__
 
     # for i in ssll:                                  # __iter__
     #     print(i)                                    # /__iter__    
@@ -776,6 +783,10 @@ if __name__ == '__main__':
     # print(ssll2.indexOf("Hello"))                   #
     # print(ssll2.indexOf(dummy2))                    #
     # print(ssll2.indexOf("Not in list"))             # /indexOf
+
+    # print(ssll.is_empty())                          # is_empty
+    # ssll.clear()                                    #
+    # print(ssll.is_empty())                          # /is_empty
 
     # print(ssll.valueOf(3))                          # valueOf
 
