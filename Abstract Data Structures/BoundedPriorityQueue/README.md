@@ -3,11 +3,11 @@ Bounded Priority Queue Abstract Data Structure
 
 Overview
 ----------------------------------
-A class which attempts to emulate the basic behavior of a Bounded Priority Queue (BPQueue).
+A class that attempts to emulate the basic behavior of a Bounded Priority Queue (BPQueue).
 
-A BPQueue introduces the concept of priority when storing, enqueing, dequeuing or peeking any of its elements. Its constructor takes an integer which represents the lowest priority level and creates an array of that many Queue instances. The first Queue will be stored in array[0] and it is considered to be the highest priority, where elements are be dequeded by default. The last queue will be inside array[-1], where elements are normally enqueued. 
+A BPQueue introduces the concept of priority when storing, enqueing, dequeuing or peeking any of its elements. Its constructor takes an integer which represents the lowest priority level and creates an array of that many Queue instances. The first Queue will be stored in array[0] and it is considered to be the highest priority, where elements are to be dequeded by default. The last queue will be inside array[-1], from where elements are normally enqueued. 
     
-However, enqueue(), dequeue() and peek() also accept an optional integer value for a priority level as a parameter. If given, only the individual queue related to that priority level will be affected by those methods. For example, if you call for enqueue(item, 3), the item is enqueued to the Queue whose priority is 3. Dequeue(5) will dequeue the first item in the queue whose priority is 5. And so on.
+However, _enqueue()_, _dequeue()_ _and peek()_ also accept an optional integer value for a priority level as a parameter. If given, only the individual queue related to that priority level will be affected by those methods. For example, if you call for _enqueue(item, 3)_, the item is enqueued to the Queue whose priority is 3. _dequeue(5)_ will dequeue the first item in the queue whose priority is 5. And so on.
 
 This class supports those three basic Queue methods as well as cloning, getting indexes of items, splitting by priority level and printing both for debugging (in detail) and for visualizing the queue as a whole in a comfortable way.
 
@@ -21,7 +21,7 @@ Attributes, methods and classes
 - *\_\_str\_\_*
 - _clone_ : Creates and returns a shallow copy of self.
 - _dequeue_ : Dequeues a node from the BPQueue or from one of its priority level queues.
-- _dprint : Prints out the BPQueue in great detail.
+- _dprint_ : Prints out the BPQueue in great detail.
 - _enqueue_ : Enqueues a node from the BPQueue or from one of its priority level queues.
 - _indexOf_ : Returns a tuple containing the BPQueue position index(es) and the in-priority-level queue index(es) a value.
 - _get\_lowest\_priority\_lvl_ : Returns the lowest priority level value of the BPQueue.
@@ -31,10 +31,10 @@ Attributes, methods and classes
 - _split_ : Splits the BPQueue in two by a specified priority level.
 
 **Helper methods:**
-    *_is_valid_priority_level* : Helper method to validate that the priority level is in range.
+- *_is_valid_priority_level* : Helper method to validate that the priority level is in range.
 
 **Inner classes:**
-    *_BPQueueIterator* : Generates and return a BPQueue iterator object when *\_\_iter\_\_* is called.
+- *_BPQueueIterator* : Generates and return a BPQueue iterator object when *\_\_iter\_\_* is called.
 
 Instructions
 ----------------------------------
@@ -53,9 +53,9 @@ However, there might yet be some improvements and additions to implement in orde
 Feel free to have a go at them if you want to practice, or leave me a message if you want to request a pull to update this same script. I am open to co-working, and I will not hesitate to give you credits for your contributions ;)
 
 - ***split_by_node(self, node_or_value)*** : You can use the current _split_ method to divide the BPQueue into two given priority level, but it would be handy to be able to do so by a specific node -or value, we can nodify it with Queue's *_nodify()*-. Tackling this idea would involve separating all nodes in the priority Queue where target node is situated. Previous nodes would be the last ones in the BPQueue (without changing priority), and nodes  in the same Queue counting from the target one onwards would be part of priority 0 Queue inside a new BPQueue.
--***split_by_index(self, node_bpq_idx)*** : If a method to get the node by its BPQueue index is developed, a split in the same fashion as above can be performed by targetting a node using that index instead of its value. A very simple general indexing was attempted in *dprint*, so that could be a starting point.
--***Deque*** : A deque is a queue where nodes can be peeked, enqueued or dequeued from both of its ends. Currently, BPQueue can target any inner priority queue or itself as a whole Queue, but it can only apply the main methods in a traditional way. Even though this is fine since a Queue is intended to work that way, we could introduce the ability to apply them to both ends on any priority queue or on itself, which could be useful for certain operations. A deque can be an extension of the methods inside BPQueue, or a whole new class.
--***UPQueue*** : A BPQueue is what its title implies: a BOUNDED queue. That means, its priority levels are set when it is constructed and cannot change, since they are stored in an Array. Even though this might be convenient due to speed and memory efficiency (an Array does not grow or shrink, which does not consume storage space or time since it does not copy elements to a new Array), it severely limits the flexibility a Python list can offer us in terms of expansion and reduction. An UNBOUNDED Priority Queue can be created as a whole class, very similar to BPQueue, but not limited to any given priority level. We can start with some -or even none-, and add them on-the-way as we need. This can prove to be a good challenge, and a very useful project.
+- ***split_by_index(self, node_bpq_idx)*** : If a method to get the node by its BPQueue index is developed, a split in the same fashion as above can be performed by targetting a node using that index instead of its value. A very simple general indexing was attempted in *dprint*, so that could be a starting point.
+- ***Deque*** : A deque is a queue where nodes can be peeked, enqueued or dequeued from both of its ends. Currently, BPQueue can target any inner priority queue or itself as a whole Queue, but it can only apply the main methods in a traditional way. Even though this is fine since a Queue is intended to work that way, we could introduce the ability to apply them to both ends on any priority queue or on itself, which could be useful for certain operations. A deque can be an extension of the methods inside BPQueue, or a whole new class.
+- ***UPQueue*** : A BPQueue is what its title implies: a BOUNDED queue. That means, its priority levels are set when it is constructed and cannot change, since they are stored in an Array. Even though this might be convenient due to speed and memory efficiency (an Array does not grow or shrink, which does not consume storage space or time since it does not copy elements to a new Array), it severely limits the flexibility a Python list can offer us in terms of expansion and reduction. An UNBOUNDED Priority Queue can be created as a whole class, very similar to BPQueue, but not limited to any given priority level. We can start with some -or even none-, and add them on-the-way as we need. This can prove to be a good challenge, and a very useful project.
 
 What learned from this project
 ----------------------------------
