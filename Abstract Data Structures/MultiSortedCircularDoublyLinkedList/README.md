@@ -3,11 +3,11 @@ Multi Sorted Circular Doubly Linked List Abstract Data Structure.
 
 Overview
 ----------------------------------
-Or **MSCDLL** ADS for short:
-- *Multi* : any of its nodes can be linked to any other MSCDLL instances, allowing chains of lists to be connected in many ways.
-- *Sorted* : nodes keep their added order (links to each other), and the order is kept or readjusted when adding new nodes or replacing/removing existing ones.
-- *Circular* : the last node in the list is linked to the first one, and vice-versa.
-- *Doubly Linked List* : each node holds a reference to the next and the back nodes in the list they are a part of.
+Or __**MSCDLL**__ ADS for short:
+- ***Multi*** : any of its nodes can be linked to any other MSCDLL instances, allowing chains of lists to be connected in many ways.
+- ***Sorted*** : nodes keep their added order (links to each other), and the order is kept or readjusted when adding new nodes or replacing/removing existing ones.
+- ***Circular*** : the last node in the list is linked to the first one, and vice-versa.
+- ***Doubly Linked List*** : each node holds a reference to the next and the back nodes in the list they are a part of.
 
 Additionally, many lists can trigger and listen to events on other lists via an observer, and react accordingly. This is made possible by the implementation of a **Pub-Sub** (or **Observer**) design pattern. 
     
@@ -18,6 +18,7 @@ Like removing a node in one list while it is linked to a different list, for exa
 Each method and attribute is commented in detail in the script itself. Please, do refer to them to check what they do and how they do it since the explanations presented here are very, very brief.
 
 Moreover, there are several examples in the script ***examples.py***, so feel free to go check them out. Keep in mind to uncomment one at a time to test their functionality, though. Methods will conflict with each other otherwise.
+
 
 Instructions
 ----------------------------------
@@ -33,6 +34,7 @@ If you really want to raise the heat, instantiate a **MSCDLLObserver** and start
 
 The world is yours, go.
 
+
 MSCDLL class
 ----------------------------------
 The one in charge of creating the type of linked lists with that long name in this README's title. By itself, it tries to emulate a Sorted Circular Doubly Linked List. It has much of its characteristics and behavior, and I adapted many of its methods to look like Python lists'. 
@@ -41,78 +43,79 @@ The main functionality is dealt with in this class, which accomplishes its task 
 
 They also have their functionality expanded collectively by MSCDLLObserver class, which help adapt and recreate a method called in an MSCDLL instance to many lists at once.
 
-**Attributes**
-- *_head* : a reference to the first node in the list.           
-- *_id* : the name (id) of the list.             
-- *_length* : the total amount of nodes the list holds.              
-- *_observer* : a reference to its assigned MSCDLL observer instance, or None if it does not have one.
+__**Attributes**__
+- ***_head*** : a reference to the first node in the list.           
+- ***_id*** : the name (id) of the list.             
+- ***_length*** : the total amount of nodes the list holds.              
+- ***_observer*** : a reference to its assigned MSCDLL observer instance, or None if it does not have one.
     
-**Main methods**
-- *\_\_init\_\_* 
-- *\_\_iter\_\_*           
-- *\_\_len\_\_* 
-- *\_\_eq\_\_*            
-- *\_\_setitem\_\_*      
-- *\_\_getitem\_\_*    
-- *\_\_del\_\_*
-- *\_\_repr\_\_*                    
-- *\_\_str\_\_*                                   
-- *get\_head* : returns a reference to the head node of the list.        
-- *get\_name* : returns the linked list's name (id).            
-- *get\_nodes* : takes a kwarg as a filter, searches the list and returns the nodes that match that filter in a list of tuples in the format: (node index in list, node).
-- *get\_observer* : returns a reference to the list's observer (MSCDLLObserver assigned instance), or None if it does not have any, or if the observer is invalid or does not contain this instance as a subscriber.     
-- *get\_observer\_subscribers* : returns a list of all linked lists being observed by this list's assigned MSCDLLObserver instance, or None if this list is not subscribed to an observer, or if the observer is invalid or does not contain this instance as a subscriber.             
-- *set\_name* : changes the linked list name (id), which also includes all of its nodes _link keys that store the list's name.
-- *set\_nodes\_values* : gets all nodes in the MSCDLL instance filtered by the respective kwarg and replaces their values for the one passed as parameter.  
-- *append* : takes a node or a value (which it automatically converts to a valid node), and appends it to the linked list.         
-- *prepend* : takes a node or a value (which it automatically converts to a valid node), and prepends it to the linked list.            
-- *insert* : inserts the node or value (which will be converted to a MSCDLLNode) passed as parameter in the specified index position. If 'overwrite' is passed as a kwarg, the node found at the given position will be replaced with the node or value (converted to a node) instead.
-- *pop* : filters the list according to the passed kwarg and removes the node in the MSCDLL instance that matches that kwarg. It returns a reference to that removed node, or None if the node was not found.               
-- *remove* : given the passed kwarg, it checks on the list for any matching nodes and removes them. It returns a list of tuples with those removed nodes in the format: (index where node was found, removed node). This method differs from pop() as it matches several instances of nodes instead of just one, and returns their list index. The drawback is that it requires a full list traversal given any scenario, where pop() only requires so in its worst case.         
-- *clear* : removes all nodes from the list, sets the head reference to None and its length to 0.              
-- *replace* : using the condition passed as kwarg, it searches on the MSCDLL for instances of nodes that match with it and replaces them with the node or value -which will be casted to a valid MSCDLLNode- passed as parameter.
-- *extend* : extends the MSCDLL instance with another valid one. Like Python's list's extend().
-- *split* : splits the MSCDLL instance into two parts, where the second one starts from the node in the original list at the index passed as a parameter.            
-- *clone* : creates a shallow copy of the linked list and returns a reference to it.          
-- *indexOf* : takes value (or node, in which case it will take its value) and searches in the list for all nodes whose values match with it. It returns a tuple containing the indexes in the  linked list where the matching nodes were found.             
-- *valueOf* : takes an index value, searches on the list to find the node in that given index and returns it.
-- *reverse* : switches each node's 'back' and 'next' references and repositions the head reference to the last node in the list, effectively reversing it in place. This method is the equivalent to Python's list[ : : -1 ].       
-- *subscribe* : calls for subscribe() in the MSCDLLObserver instance passed as a parameter, which adds this list to its subscribers. It also sets that observer instance as this list's observer.       
-- *unsubscribe* : calls for unsubscribe() in the MSCDLLObserver instance passed as a parameter, which removes this list to its subscribers. It also sets this list's _observer field to none.         
-- *is\_empty* : returns True is the list is empty. False othewise.
-- *iter\_reverse* : returns an _MSCDLLReverseIterator instance, which can be used as an iterator that traverses the list in reverse order.    
-- *dprint* : prints the MSCDLL instance in a 'debugging' fashion.
+__**Main methods**__
+- ***\_\_init\_\_*** 
+- ***\_\_iter\_\_***           
+- ***\_\_len\_\_*** 
+- ***\_\_eq\_\_***            
+- ***\_\_setitem\_\_***      
+- ***\_\_getitem\_\_***    
+- ***\_\_del\_\_***
+- ***\_\_repr\_\_***                    
+- ***\_\_str\_\_***                                   
+- ***get\_head*** : returns a reference to the head node of the list.        
+- ***get\_name*** : returns the linked list's name (id).            
+- ***get\_nodes*** : takes a kwarg as a filter, searches the list and returns the nodes that match that filter in a list of tuples in the format: (node index in list, node).
+- ***get\_observer*** : returns a reference to the list's observer (MSCDLLObserver assigned instance), or None if it does not have any, or if the observer is invalid or does not contain this instance as a subscriber.     
+- ***get\_observer\_subscribers*** : returns a list of all linked lists being observed by this list's assigned MSCDLLObserver instance, or None if this list is not subscribed to an observer, or if the observer is invalid or does not contain this instance as a subscriber.             
+- ***set\_name*** : changes the linked list name (id), which also includes all of its nodes _link keys that store the list's name.
+- ***set\_nodes\_values*** : gets all nodes in the MSCDLL instance filtered by the respective kwarg and replaces their values for the one passed as parameter.  
+- ***append*** : takes a node or a value (which it automatically converts to a valid node), and appends it to the linked list.         
+- ***prepend*** : takes a node or a value (which it automatically converts to a valid node), and prepends it to the linked list.            
+- ***insert*** : inserts the node or value (which will be converted to a MSCDLLNode) passed as parameter in the specified index position. If 'overwrite' is passed as a kwarg, the node found at the given position will be replaced with the node or value (converted to a node) instead.
+- ***pop*** : filters the list according to the passed kwarg and removes the node in the MSCDLL instance that matches that kwarg. It returns a reference to that removed node, or None if the node was not found.               
+- ***remove*** : given the passed kwarg, it checks on the list for any matching nodes and removes them. It returns a list of tuples with those removed nodes in the format: (index where node was found, removed node). This method differs from pop() as it matches several instances of nodes instead of just one, and returns their list index. The drawback is that it requires a full list traversal given any scenario, where pop() only requires so in its worst case.         
+- ***clear*** : removes all nodes from the list, sets the head reference to None and its length to 0.              
+- ***replace*** : using the condition passed as kwarg, it searches on the MSCDLL for instances of nodes that match with it and replaces them with the node or value -which will be casted to a valid MSCDLLNode- passed as parameter.
+- ***extend*** : extends the MSCDLL instance with another valid one. Like Python's list's extend().
+- ***split*** : splits the MSCDLL instance into two parts, where the second one starts from the node in the original list at the index passed as a parameter.            
+- ***clone*** : creates a shallow copy of the linked list and returns a reference to it.          
+- ***indexOf*** : takes value (or node, in which case it will take its value) and searches in the list for all nodes whose values match with it. It returns a tuple containing the indexes in the  linked list where the matching nodes were found.             
+- ***valueOf*** : takes an index value, searches on the list to find the node in that given index and returns it.
+- ***reverse*** : switches each node's 'back' and 'next' references and repositions the head reference to the last node in the list, effectively reversing it in place. This method is the equivalent to Python's list[ : : -1 ].       
+- ***subscribe*** : calls for subscribe() in the MSCDLLObserver instance passed as a parameter, which adds this list to its subscribers. It also sets that observer instance as this list's observer.       
+- ***unsubscribe*** : calls for unsubscribe() in the MSCDLLObserver instance passed as a parameter, which removes this list to its subscribers. It also sets this list's _observer field to none.         
+- ***is\_empty*** : returns True is the list is empty. False othewise.
+- ***iter\_reverse*** : returns an _MSCDLLReverseIterator instance, which can be used as an iterator that traverses the list in reverse order.    
+- ***dprint*** : prints the MSCDLL instance in a 'debugging' fashion.
 
-**Methods linked to the observer to call for all lists**
-- *linked\_append* : calls for the assigned observer's *\_append* method to append a node or a value (which is converted to a node) to all of its subscribers.
-- *linked\_prepend* : Calls for the assigned observer's *\_prepend* method to prepend a node or a value (which is converted to a node) to all of its subscribers   
-- *linked\_insert* : calls for the assigned observer's *\_insert* method to insert a node or a value (which is converted to a node) into all of its subscribers at the given position index, or to overwrite the node at that index if 'overwrite' is True.
-- *linked\_pop* : calls for the assigned observer's *\_pop* method to pop a node from all of its subscribers at the given position index.           
-- *linked\_remove* : calls for the assigned observer's *\_remove* method to remove a node from all of its subscribers at the given the passed kwarg.           
-- *linked\_clear* : calls for the assigned observer's *\_clear* method to unlink all nodes from all of its subscribers. Each list's length is set to 0 and head reference to None.
-- *linked\_replace* : calls for the assigned observer's *\_replace* method to replace all nodes found filtering by the passed kwarg in all of its subscribers with the node or value passed as parameter.       
-- *linked\_replace* : calls for the assigned observer's *\_extend* method to extend all of its subscribers as indicated by the passed kwarg.
-- *linked\_split* :            
-- *linked\_clone* : calls for the assigned observer's *\_clone* method to clone all of its subscribers.
-- *linked\_reverse* : calls for the assigned observer's *\_reverse* method to reverse all of its subscribers in place.        
-- *linked\_indexOf* : calls for the assigned observer's *\_indexOf* method on each of its subscribers to get the index position of the nodes whose values match the value or node passed as a parameter (if a node was passed, its value will be considered).          
-- *linked\_valueOf* : Calls for the assigned observer's *\_valueOf* method on each of its subscribers to get the node's values on the index position passed as a parameter.
-- *linked\_split* : calls for the assigned observer's *\_split* method to split all of its subscribers by the given index.         
-- *linked\_set\_nodes\_values* : calls for the assigned observer's *\_set\_nodes\_values* method change each of their subscribers' nodes' values that match the filter stated in the kwarg values to the value passed as parameter.
-- *linked\_get\_head* : calls for the assigned observer's *\_get\_head* method on all of its subscribers to get an instance of their head nodes.
-- *linked\_get\_nodes* : calls for the assigned observer's *\_get\_nodes* method to get all nodes in all of its subscribers using the passed kwarg as a filter.     
-- *linked\_is\_empty* : calls for the assigned observer's *\_is\_empty* method on all of its subscribers to check if whether they are empty or not.    
+__**Methods linked to the observer to call for all lists**__
+- ***linked\_append*** : calls for the assigned observer's *\_append* method to append a node or a value (which is converted to a node) to all of its subscribers.
+- ***linked\_prepend*** : Calls for the assigned observer's *\_prepend* method to prepend a node or a value (which is converted to a node) to all of its subscribers   
+- ***linked\_insert***** : calls for the assigned observer's *\_insert* method to insert a node or a value (which is converted to a node) into all of its subscribers at the given position index, or to overwrite the node at that index if 'overwrite' is True.
+- ***linked\_pop*** : calls for the assigned observer's *\_pop* method to pop a node from all of its subscribers at the given position index.           
+- ***linked\_remove*** : calls for the assigned observer's *\_remove* method to remove a node from all of its subscribers at the given the passed kwarg.           
+- ***linked\_clear*** : calls for the assigned observer's *\_clear* method to unlink all nodes from all of its subscribers. Each list's length is set to 0 and head reference to None.
+- ***linked\_replace*** : calls for the assigned observer's *\_replace* method to replace all nodes found filtering by the passed kwarg in all of its subscribers with the node or value passed as parameter.       
+- ***linked\_replace*** : calls for the assigned observer's *\_extend* method to extend all of its subscribers as indicated by the passed kwarg.          
+- ***linked\_clone*** : calls for the assigned observer's *\_clone* method to clone all of its subscribers.
+- ***linked\_reverse*** : calls for the assigned observer's *\_reverse* method to reverse all of its subscribers in place.        
+- ***linked\_indexOf*** : calls for the assigned observer's *\_indexOf* method on each of its subscribers to get the index position of the nodes whose values match the value or node passed as a parameter (if a node was passed, its value will be considered).          
+- ***linked\_valueOf*** : calls for the assigned observer's *\_valueOf* method on each of its subscribers to get the node's values on the index position passed as a parameter.
+- ***linked\_split*** : calls for the assigned observer's *\_split* method to split all of its subscribers by the given index.         
+- ***linked\_set\_nodes\_values*** : calls for the assigned observer's *\_set\_nodes\_values* method change each of their subscribers' nodes' values that match the filter stated in the kwarg values to the value passed as parameter.
+- ***linked\_get\_head*** : calls for the assigned observer's *\_get\_head* method on all of its subscribers to get an instance of their head nodes.
+- ***linked\_get\_nodes*** : calls for the assigned observer's *\_get\_nodes* method to get all nodes in all of its subscribers using the passed kwarg as a filter.     
+- ***linked\_is\_empty*** : calls for the assigned observer's *\_is\_empty* method on all of its subscribers to check if whether they are empty or not.    
 
-**Helper methods**
-- *\_assert_subscription* : checks if the list is subscribed to a valid MSCDLLObserver instance, and that MSCDLLObserver has the list as one of its subscribers. Returns True if so. Otherwise, it raises a AssertionError.   
-- *\_nodify* : takes an instance of MSCDLLNode or any value and: (1) if it is a node, it adds this list to the node's _links' keys, or (2) if it is any value, it converts it to a MSCDLLNode and also adds this list to the node's _links' keys.
-- *\_get\_node\_by\_idx* : takes an integer index (idx) and returns a reference to the node in that index position in the list. Accepts negative indexing, like a regular Python list.
-- *\_get\_node\_by\_name* : given the node's name (id) passed as parameter, it searches on the list for a node with that name and returns it. Otherwise, it returns None.
+__**Helper methods**__
+- ***\_assert_subscription*** : checks if the list is subscribed to a valid MSCDLLObserver instance, and that MSCDLLObserver has the list as one of its subscribers. Returns True if so. Otherwise, it raises a AssertionError.   
+- ***\_nodify*** : takes an instance of MSCDLLNode or any value and: (1) if it is a node, it adds this list to the node's _links' keys, or (2) if it is any value, it converts it to a MSCDLLNode and also adds this list to the node's _links' keys.
+- ***\_get\_node\_by\_idx*** : takes an integer index (idx) and returns a reference to the node in that index position in the list. Accepts negative indexing, like a regular Python list.
+- ***\_get\_node\_by\_name*** : given the node's name (id) passed as parameter, it searches on the list for a node with that name and returns it. Otherwise, it returns None.
+
 
 Iterator classes
 ----------------------------------
 - **_MSCDLLIterator Class** : A class resposible for generating iterator objects that traverse  the MSCDLL forwards. From the head node to the last one.
 - **_MSCDLLReverseIterator** : A class resposible for generating iterator objects that traverse the MSCDLL backwards. From the last node to the head one.
+
 
 MSCDLLNode class
 ----------------------------------
@@ -120,25 +123,26 @@ The "data storage" class, responsible for creating valid node objects to store i
 
 The nodes generated here are able to hold any kind of values, are unique from each other by default (you can change this property, though), and have a dictionary to store links to their back and next nodes of every single list they are in.
 
-**Attributes**
-- *value* : the node's value.         
-- *\_links* : a dictionary whose keys are the MSCDLL lists' names the node is assigned to. A node has no limits to how many lists it can be in, but must not be inside the same list more than once.             
-- *\_id* : the node name (id).
+__**Attributes**__
+- ***value*** : the node's value.         
+- ***\_links*** : a dictionary whose keys are the MSCDLL lists' names the node is assigned to. A node has no limits to how many lists it can be in, but must not be inside the same list more than once.             
+- ***\_id*** : the node name (id).
 
-**Main methods**
-- *\_\_init\_\_*       
-- *\_\_str\_\_*         
-- *\_\_repr\_\_*        
-- *get\_links* : returns a dictionary where the keys are all of the MSCDLL instances the node is linked to, and their values, the 'next' and 'back' node references in them. 
-- *get\_MSCDLL\_links* : returns a dictionary whose key is the MSCDLL list passed as parameter, and its values are this node's 'back' and 'next' references in that list. 
-- *get\_name* : returns the name (id) of the node.            
-- *get\_next* : returns a reference to this node's next node in the MSCDLL instance passed as parameter.
-- *get\_back* : returns a reference to this node's back node in the MSCDLL instance passed as parameter.           
-- *set\_name* : sets the name (id) of this node to the one passed as parameter.           
-- *set\_next* : sets this node's 'next' reference in the MSCDLL list passed as parameter to a valid MSCDLLNode instance, also passed as parameter.
-- *set\_back* : sets this node's 'back' reference in the MSCDLL list passed as parameter to a valid MSCDLLNode instance, also passed as parameter.         
-- *set\_MSCDLL\_links* : creates a key with the MSCDLL instance's name (id) inside the *_links* dictionary and assigns an empty dictionary as its value. 
-- *pprint* : prints the node out in a 'debugging' fashion. Emulates JSON format.
+__**Main methods**__
+- ***\_\_init\_\_***       
+- ***\_\_str\_\_***         
+- ***\_\_repr\_\_***        
+- ***get\_links*** : returns a dictionary where the keys are all of the MSCDLL instances the node is linked to, and their values, the 'next' and 'back' node references in them. 
+- ***get\_MSCDLL\_links*** : returns a dictionary whose key is the MSCDLL list passed as parameter, and its values are this node's 'back' and 'next' references in that list. 
+- ***get\_name*** : returns the name (id) of the node.            
+- ***get\_next*** : returns a reference to this node's next node in the MSCDLL instance passed as parameter.
+- ***get\_back*** : returns a reference to this node's back node in the MSCDLL instance passed as parameter.           
+- ***set\_name*** : sets the name (id) of this node to the one passed as parameter.           
+- ***set\_next*** : sets this node's 'next' reference in the MSCDLL list passed as parameter to a valid MSCDLLNode instance, also passed as parameter.
+- ***set\_back*** : sets this node's 'back' reference in the MSCDLL list passed as parameter to a valid MSCDLLNode instance, also passed as parameter.         
+- ***set\_MSCDLL\_links*** : creates a key with the MSCDLL instance's name (id) inside the *_links* dictionary and assigns an empty dictionary as its value. 
+- ***pprint*** : prints the node out in a 'debugging' fashion. Emulates JSON format.
+
 
 MSCDLLObserver Class
 ----------------------------------
@@ -152,40 +156,41 @@ Even though an observer instance is capable of calling for its methods by itself
 
 So, the intended behavior is for that MSCDLL instance to command the method to apply to all lists by its own 'linked' version, and for the observer to adapt that call and redirect it to all other lists.
 
-**Attributes**
-- *\_subscribers* : a list holding all MSCDLL instances subscribed to it.       
-- *\_id* : the name (id) of the observer.
+__**Attributes**__
+- *\_subscribers*** : a list holding all MSCDLL instances subscribed to it.       
+- *\_id*** : the name (id) of the observer.
     
-**Main methods**
-*\_\_init\_\_*          
-*\_\_str_\_*              
-*subscribe* : takes a valid MSCDLL instance and adds it to its *_subscribers* list. It also sets that instance's *_observer* to point to this one. 
-*unsubscribe* : takes an MSCDLL instance inside *_subscribers* and removes it. It also sets its *_observer* pointer to None.        
-*unsubscribe\_all* : unsubscribes all MSCDLL instances stored in *_subscribers*. Each one of those instances will have their *_observer* set to None, and the observer's *_subscriber* list will be emptied.     
-*get\_name* : returns the name (id) of the observer.
-*get\_subscriber* : searches for a subscriber whose name (id) matches the one passed as a parameter. Returns a reference to the found subscriber or None if there was no subscriber found.   
-*get\_subscribers* : returns a reference to the list containing the references to all the observer's subscribers.         
-*set\_name* : sets the name of the observer to the one passed as parameter.
+__**Main methods**__
+- ***\_\_init\_\_***          
+- ***\_\_str_\_***              
+- ***subscribe*** : takes a valid MSCDLL instance and adds it to its *_subscribers* list. It also sets that instance's *_observer* to point to this one. 
+- ***unsubscribe*** : takes an MSCDLL instance inside *_subscribers* and removes it. It also sets its *_observer* pointer to None.        
+- ***unsubscribe\_all*** : unsubscribes all MSCDLL instances stored in *_subscribers*. Each one of those instances will have their *_observer* set to None, and the observer's *_subscriber* list will be emptied.     
+- ***get\_name*** : returns the name (id) of the observer.
+- ***get\_subscriber*** : searches for a subscriber whose name (id) matches the one passed as a parameter. Returns a reference to the found subscriber or None if there was no subscriber found.   
+- ***get\_subscribers*** : returns a reference to the list containing the references to all the observer's subscribers.         
+- ***set\_name*** : sets the name of the observer to the one passed as parameter.
 
-**Private methods** 
+__**Private methods**__
 (meant to be called by MSCDLL instances 'linked' methods)
-- *\_append* : calls for each subscriber's *append()* to add a node or value (which is converted to a node), at the end of all of them.             
-- *\_prepend* : calls for each subscriber's *prepend()* to add a node or value (which is converted to a node), to the beginning of all of them, as their head node.             
-- *\_insert* : calls for each subscriber's *insert()* to add or replace a node or value (which is converted to a node), on each list at the index specified by the 'position' parameter. 
-- *\_remove* : calls for each subscriber's *remove()* to remove any instances of nodes whose indexes, values or names match the ones passed as kwargs.     
-- *\_pop* : calls for each subscriber's *remove()* to remove a node from them at the passed index kwarg, or by the passed node's name.               
-- *\_clear* : calls for each subscriber's *clear()* to unlink all nodes from them, reset their length and set their head nodes to None.
-- *\_split* : calls for each subscriber's *split()* to split by the index passed as parameter.
-- *\_extend* : calls for each subscriber's *extend()* to extend them according to the mode passed as kwarg.              
-- *\_clone* : calls for each subscriber's *clone()* to create and return a shallow copy of each of them.              
-- *\_replace* : calls for each subscriber's *replace()* to replace a node from them at the passed index kwarg, or by the passed node's name.
-- *\_indexOf* : calls for each subscriber's *indexOf()* to get the indexes of the node(s) whose value matches the value (or node's value) passed as parameter, for each list.            
-- *\_valueOf* : calls for each subscriber's *valueOf()* to get the node at the index position passed as parameter.            
-- *\_reverse* : calls for each subscriber's *reverse()* to reverse all of them in place.
-- *\_get\_head* : calls for each subscriber's *get\_head()* to check return a reference to the head node of each list.           
-- *\_get\_nodes* : calls for each subscriber's *get_nodes()* to get all of their nodes that match the given kwarg used as a filter.          
-- *\_is\_empty* : calls for each subscriber's *is\_empty()* to check if each of them is an empty list or not.
-- *\_set\_nodes\_values* : calls for each subscriber's set_nodes_values() to set the values of all matching nodes given the kwarg to the one passed as a parameter. 
+- *v\_append*** : calls for each subscriber's *append()* to add a node or value (which is converted to a node), at the end of all of them.             
+- ***\_prepend*** : calls for each subscriber's *prepend()* to add a node or value (which is converted to a node), to the beginning of all of them, as their head node.             
+- ***\_insert*** : calls for each subscriber's *insert()* to add or replace a node or value (which is converted to a node), on each list at the index specified by the 'position' parameter. 
+- ***\_remove*** : calls for each subscriber's *remove()* to remove any instances of nodes whose indexes, values or names match the ones passed as kwargs.     
+- ***\_pop*** : calls for each subscriber's *remove()* to remove a node from them at the passed index kwarg, or by the passed node's name.               
+- ***\_clear*** : calls for each subscriber's *clear()* to unlink all nodes from them, reset their length and set their head nodes to None.
+- ***\_split*** : calls for each subscriber's *split()* to split by the index passed as parameter.
+- ***\_extend*** : calls for each subscriber's *extend()* to extend them according to the mode passed as kwarg.              
+- ***\_clone*** : calls for each subscriber's *clone()* to create and return a shallow copy of each of them.              
+- ***\_replace*** : calls for each subscriber's *replace()* to replace a node from them at the passed index kwarg, or by the passed node's name.
+- ***\_indexOf*** : calls for each subscriber's *indexOf()* to get the indexes of the node(s) whose value matches the value (or node's value) passed as parameter, for each list.            
+- ***\_valueOf*** : calls for each subscriber's *valueOf()* to get the node at the index position passed as parameter.            
+- ***\_reverse*** : calls for each subscriber's *reverse()* to reverse all of them in place.
+- ***\_get\_head*** : calls for each subscriber's *get\_head()* to check return a reference to the head node of each list.           
+- ***\_get\_nodes*** : calls for each subscriber's *get_nodes()* to get all of their nodes that match the given kwarg used as a filter.          
+- ***\_is\_empty*** : calls for each subscriber's *is\_empty()* to check if each of them is an empty list or not.
+- ***\_set\_nodes\_values*** : calls for each subscriber's set_nodes_values() to set the values of all matching nodes given the kwarg to the one passed as a parameter. 
+
 
 What learned from this project
 ----------------------------------
@@ -196,5 +201,6 @@ What learned from this project
 - I exhausted ideas to traverse a circular list. Some options in the script might not seem optimal, but I left them to remember particular ways I came up with to do so when I revisit this ADS later.
 - I thought I understood linked lists when I managed to make SinglySortedLinkedList ADS work. Gosh I was naive back then.
 - I really, REALLY need to teach myself to keep projects simple and brief. This one is fully functional, but I certainly overdid it. It took me a good amount of time to complete it, time I could have spent learning or practising other topics. I regret little, though. It was an awesome experience.
+  
   
 ### Thank you for reading and for taking your time to check this project out!
