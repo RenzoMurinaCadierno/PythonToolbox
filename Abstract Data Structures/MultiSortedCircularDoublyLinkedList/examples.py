@@ -1350,11 +1350,3 @@ print('#' * 80)
 
 
 print('#' * 80)     
-
-# mscdll_6 = MSCDLL(
-#     111, 'asd', True, None, 1, True, {}, 2, {'a': 1}, False, True, 
-#     name='',
-# )
-
-# print('node:',mscdll_6._get_node_by_idx(11))
-# mscdll_6.dprint()
