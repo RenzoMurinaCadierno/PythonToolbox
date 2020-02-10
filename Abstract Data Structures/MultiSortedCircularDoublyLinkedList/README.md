@@ -17,7 +17,7 @@ Like removing a node in one list while it is linked to a different list, for exa
 
 Each method and attribute is commented in detail in the script itself. Please, do refer to them to check what they do and how they do it since the explanations presented here are very, very brief.
 
-Moreover, there are several examples in the script ***examples.py***, so feel free to go check them out. Keep in mind to uncomment one at a time to test their functionality, though. Methods will conflict with each other otherwise.
+Moreover, there are several examples in the script ***examples.py***, so feel free to go check them out. Keep in mind that you need to uncomment one block of code at a time to test their functionality, though. Methods will conflict with each other otherwise.
 
 
 Instructions
@@ -87,7 +87,7 @@ __**Main methods**__
 
 __**Methods linked to the observer to call for all lists**__
 - ***linked\_append*** : calls for the assigned observer's *\_append* method to append a node or a value (which is converted to a node) to all of its subscribers.
-- ***linked\_prepend*** : Calls for the assigned observer's *\_prepend* method to prepend a node or a value (which is converted to a node) to all of its subscribers   
+- ***linked\_prepend*** : calls for the assigned observer's *\_prepend* method to prepend a node or a value (which is converted to a node) to all of its subscribers   
 - ***linked\_insert***** : calls for the assigned observer's *\_insert* method to insert a node or a value (which is converted to a node) into all of its subscribers at the given position index, or to overwrite the node at that index if 'overwrite' is True.
 - ***linked\_pop*** : calls for the assigned observer's *\_pop* method to pop a node from all of its subscribers at the given position index.           
 - ***linked\_remove*** : calls for the assigned observer's *\_remove* method to remove a node from all of its subscribers at the given the passed kwarg.           
@@ -106,7 +106,7 @@ __**Methods linked to the observer to call for all lists**__
 
 __**Helper methods**__
 - ***\_assert_subscription*** : checks if the list is subscribed to a valid MSCDLLObserver instance, and that MSCDLLObserver has the list as one of its subscribers. Returns True if so. Otherwise, it raises a AssertionError.   
-- ***\_nodify*** : takes an instance of MSCDLLNode or any value and: (1) if it is a node, it adds this list to the node's _links' keys, or (2) if it is any value, it converts it to a MSCDLLNode and also adds this list to the node's _links' keys.
+- ***\_nodify*** : takes an instance of MSCDLLNode or any value and: (1) if it is a node, it adds the caller's MSCDLL instance's name to the node's **\_links**' keys and an empty dictionary as its value, or (2) if it is any value, it converts it to a MSCDLLNode and with that node it does the same as in (1).
 - ***\_get\_node\_by\_idx*** : takes an integer index (idx) and returns a reference to the node in that index position in the list. Accepts negative indexing, like a regular Python list.
 - ***\_get\_node\_by\_name*** : given the node's name (id) passed as parameter, it searches on the list for a node with that name and returns it. Otherwise, it returns None.
 
@@ -192,7 +192,7 @@ __**Private methods**__
 - ***\_set\_nodes\_values*** : calls for each subscriber's set_nodes_values() to set the values of all matching nodes given the kwarg to the one passed as a parameter. 
 
 
-What learned from this project
+What I learned from this project
 ----------------------------------
 - You ought not to delete elements from the same list you are iterating. Since you are attempting to change the list size while still looping through it, the run-time integrity breaks and the program crashes.
 - Python's 'is' operator is very similar to Javascript's '==='. I did not know, I thought it was just a more humanly-readable way to type '=='. A whole new world opened up for me now that I am aware that you can check for value equality using one operator, and for value and type equality at the same one using another.
