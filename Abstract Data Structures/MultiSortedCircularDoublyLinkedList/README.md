@@ -1,4 +1,4 @@
-Multi Sorted Circular Doubly Linked List Abstract Data Structure.
+Multi Sorted Circular Doubly Linked List Abstract Data Structure
 ==================================
 
 Overview
@@ -133,10 +133,10 @@ __**Main methods**__
 - ***\_\_str\_\_***         
 - ***\_\_repr\_\_***        
 - ***get\_links*** : returns a dictionary where the keys are all of the MSCDLL instances the node is linked to, and their values, the 'next' and 'back' node references in them. 
-- ***get\_MSCDLL\_links*** : returns a dictionary whose key is the MSCDLL list passed as parameter, and its values are this node's 'back' and 'next' references in that list. 
 - ***get\_name*** : returns the name (id) of the node.            
 - ***get\_next*** : returns a reference to this node's next node in the MSCDLL instance passed as parameter.
-- ***get\_back*** : returns a reference to this node's back node in the MSCDLL instance passed as parameter.           
+- ***get\_back*** : returns a reference to this node's back node in the MSCDLL instance passed as parameter.  
+- ***get\_MSCDLL\_links*** : returns a dictionary whose key is the MSCDLL list passed as parameter, and its values are this node's 'back' and 'next' references in that list. 
 - ***set\_name*** : sets the name (id) of this node to the one passed as parameter.           
 - ***set\_next*** : sets this node's 'next' reference in the MSCDLL list passed as parameter to a valid MSCDLLNode instance, also passed as parameter.
 - ***set\_back*** : sets this node's 'back' reference in the MSCDLL list passed as parameter to a valid MSCDLLNode instance, also passed as parameter.         
@@ -157,8 +157,8 @@ Even though an observer instance is capable of calling for its methods by itself
 So, the intended behavior is for that MSCDLL instance to command the method to apply to all lists by its own 'linked' version, and for the observer to adapt that call and redirect it to all other lists.
 
 __**Attributes**__
-- *\_subscribers*** : a list holding all MSCDLL instances subscribed to it.       
-- *\_id*** : the name (id) of the observer.
+- ***\_subscribers*** : a list holding all MSCDLL instances subscribed to it.       
+- ***\_id*** : the name (id) of the observer.
     
 __**Main methods**__
 - ***\_\_init\_\_***          
@@ -173,7 +173,7 @@ __**Main methods**__
 
 __**Private methods**__
 (meant to be called by MSCDLL instances 'linked' methods)
-- *v\_append*** : calls for each subscriber's *append()* to add a node or value (which is converted to a node), at the end of all of them.             
+- ***\_append*** : calls for each subscriber's *append()* to add a node or value (which is converted to a node), at the end of all of them.             
 - ***\_prepend*** : calls for each subscriber's *prepend()* to add a node or value (which is converted to a node), to the beginning of all of them, as their head node.             
 - ***\_insert*** : calls for each subscriber's *insert()* to add or replace a node or value (which is converted to a node), on each list at the index specified by the 'position' parameter. 
 - ***\_remove*** : calls for each subscriber's *remove()* to remove any instances of nodes whose indexes, values or names match the ones passed as kwargs.     
