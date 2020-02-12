@@ -88,12 +88,12 @@ __**Main methods**__
 __**Methods linked to the observer to call for all lists**__
 - ***linked\_append*** : calls for the assigned observer's *\_append* method to append a node or a value (which is converted to a node) to all of its subscribers.
 - ***linked\_prepend*** : calls for the assigned observer's *\_prepend* method to prepend a node or a value (which is converted to a node) to all of its subscribers   
-- ***linked\_insert***** : calls for the assigned observer's *\_insert* method to insert a node or a value (which is converted to a node) into all of its subscribers at the given position index, or to overwrite the node at that index if 'overwrite' is True.
+- ***linked\_insert*** : calls for the assigned observer's *\_insert* method to insert a node or a value (which is converted to a node) into all of its subscribers at the given position index, or to overwrite the node at that index if 'overwrite' is True.
 - ***linked\_pop*** : calls for the assigned observer's *\_pop* method to pop a node from all of its subscribers at the given position index.           
 - ***linked\_remove*** : calls for the assigned observer's *\_remove* method to remove a node from all of its subscribers at the given the passed kwarg.           
 - ***linked\_clear*** : calls for the assigned observer's *\_clear* method to unlink all nodes from all of its subscribers. Each list's length is set to 0 and head reference to None.
 - ***linked\_replace*** : calls for the assigned observer's *\_replace* method to replace all nodes found filtering by the passed kwarg in all of its subscribers with the node or value passed as parameter.       
-- ***linked\_replace*** : calls for the assigned observer's *\_extend* method to extend all of its subscribers as indicated by the passed kwarg.          
+- ***linked\_extend*** : calls for the assigned observer's *\_extend* method to extend all of its subscribers as indicated by the passed kwarg.          
 - ***linked\_clone*** : calls for the assigned observer's *\_clone* method to clone all of its subscribers.
 - ***linked\_reverse*** : calls for the assigned observer's *\_reverse* method to reverse all of its subscribers in place.        
 - ***linked\_indexOf*** : calls for the assigned observer's *\_indexOf* method on each of its subscribers to get the index position of the nodes whose values match the value or node passed as a parameter (if a node was passed, its value will be considered).          
